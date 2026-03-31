@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS DevOps + AI Integrated Program – BTree Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --teal: #0D7377;
+    --teal-light: #14A1A6;
+    --sky: #00C2CC;
+    --orange: #FF6B35;
+    --amber: #FFB830;
+    --white: #FFFFFF;
+    --off-white: #F4F7FA;
+    --muted: #8FA3BF;
+    --card-bg: #0E1E35;
+    --card-border: rgba(20,161,166,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    width: 794px;
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ─── PAGE SHELL ─────────────────────────────────────── */
+  .page {
+    width: 794px;
+    min-height: 1123px;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* ─── SHARED NAV BAR ─────────────────────────────────── */
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 36px;
+    background: rgba(10,22,40,0.95);
+    border-bottom: 1px solid var(--card-border);
+    position: relative;
+    z-index: 10;
+  }
+  .nav-logo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--sky);
+    letter-spacing: 0.5px;
+  }
+  .nav-logo span { color: var(--white); }
+  .nav-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .page-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--teal-light);
+    letter-spacing: 0.5px;
+  }
+
+  /* ──────────────────────────────────────────────────────
+     PAGE 1 – COVER
+  ────────────────────────────────────────────────────── */
+  .cover {
+    background:
+      radial-gradient(ellipse 80% 60% at 110% -10%, rgba(0,194,204,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at -10% 110%, rgba(255,107,53,0.12) 0%, transparent 55%),
+      linear-gradient(160deg, #0A1628 0%, #091422 60%, #060E1A 100%);
+  }
+
+  .cover-body {
+    padding: 0 48px 0 48px;
+    position: relative;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    margin-top: 32px;
+    background: linear-gradient(90deg, rgba(0,194,204,0.15), rgba(0,194,204,0.05));
+    border: 1px solid rgba(0,194,204,0.4);
+    border-radius: 30px;
+    padding: 6px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sky);
+  }
+
+  .cover-headline {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 1.2;
+    margin-top: 18px;
+    color: #FFFFFF;
+    letter-spacing: -0.5px;
+  }
+
+  .cover-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #B8CCD8;
+    margin-top: 12px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0;
+  }
+  .cover-sub strong { color: var(--sky); font-weight: 600; }
+
+  .cover-tagline {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--orange);
+    margin-top: 16px;
+    letter-spacing: 0;
+  }
+
+  /* meta chips */
+  .meta-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 10px 18px;
+  }
+  .meta-chip .icon { font-size: 18px; }
+  .meta-chip .label { font-family: 'Inter', sans-serif; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; }
+  .meta-chip .val { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; color: var(--white); }
+
+  /* roles */
+  .roles-section { margin-top: 30px; }
+  .roles-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 12px;
+  }
+  .roles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .role-card {
+    background: linear-gradient(135deg, rgba(13,115,119,0.2), rgba(13,115,119,0.06));
+    border: 1px solid rgba(13,115,119,0.35);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .role-dot {
+    width: 8px; height: 8px;
+    background: var(--sky);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .role-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--white);
+  }
+  .role-sal {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--amber);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  /* highlights strip */
+  .highlights-strip {
+    display: flex;
+    gap: 0;
+    margin-top: 28px;
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .hl-item {
+    flex: 1;
+    padding: 16px 14px;
+    text-align: center;
+    border-right: 1px solid var(--card-border);
+    background: rgba(14,30,53,0.7);
+  }
+  .hl-item:last-child { border-right: none; }
+  .hl-icon { font-size: 20px; margin-bottom: 6px; }
+  .hl-val {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--sky);
+  }
+  .hl-lbl { font-family: 'Inter', sans-serif; font-size: 10px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 400; }
+
+  /* cover footer */
+  .cover-footer {
+    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(14,30,53,0.9);
+    border-top: 1px solid var(--card-border);
+  }
+  .cta-btn {
+    background: linear-gradient(135deg, var(--teal), var(--sky));
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .footer-contact { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .footer-contact strong { color: var(--white); font-weight: 600; }
+
+  /* cover grid bg */
+  .grid-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(0,194,204,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,194,204,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ──────────────────────────────────────────────────────
+     PAGES 2–3 – REVIEWS
+  ────────────────────────────────────────────────────── */
+  .reviews-page { background: var(--navy); }
+
+  .section-header {
+    padding: 32px 40px 18px;
+  }
+  .section-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--white);
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+  }
+  .section-title span { color: var(--sky); }
+  .section-rule {
+    width: 50px; height: 3px;
+    background: linear-gradient(90deg, var(--sky), transparent);
+    border-radius: 2px;
+    margin-top: 10px;
+  }
+
+  /* stats row */
+  .stats-row {
+    display: flex;
+    gap: 14px;
+    padding: 0 40px;
+    margin-bottom: 22px;
+  }
+  .stat-card {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(0,194,204,0.12), rgba(0,194,204,0.04));
+    border: 1px solid rgba(0,194,204,0.3);
+    border-radius: 14px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .stat-number {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--sky);
+    line-height: 1.2;
+  }
+  .stat-label { font-family: 'Inter', sans-serif; font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 400; }
+
+  /* review card */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 0 40px;
+  }
+  .review-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+  }
+  .review-card::before {
+    content: '"';
+    position: absolute;
+    top: 10px; right: 16px;
+    font-size: 44px;
+    font-family: 'Poppins', sans-serif;
+    color: rgba(0,194,204,0.10);
+    line-height: 1;
+  }
+  .review-stars { color: var(--amber); font-size: 13px; margin-bottom: 8px; letter-spacing: 1px; }
+  .review-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #B8CCD8;
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+  .reviewer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 12px;
+  }
+  .reviewer-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--sky));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .reviewer-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--white);
+  }
+  .reviewer-course { font-family: 'Inter', sans-serif; font-size: 10px; color: var(--muted); font-weight: 400; }
+
+  /* social proof band */
+  .social-band {
+    margin: 18px 40px 0;
+    background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(255,184,48,0.06));
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .social-band-icon { font-size: 28px; }
+  .social-band-text .top { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; }
+  .social-band-text .bottom { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 400; }
+  .social-links { margin-left: auto; display: flex; flex-direction: column; gap: 4px; }
+  .social-link { font-family: 'Inter', sans-serif; font-size: 11px; color: var(--sky); text-decoration: none; font-weight: 400; }
+
+  /* qr section */
+  .qr-row {
+    display: flex;
+    gap: 14px;
+    padding: 16px 40px 0;
+  }
+  .qr-card {
+    flex: 1;
+    background: rgba(14,30,53,0.8);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .qr-box {
+    width: 50px; height: 50px;
+    background: var(--white);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .qr-label { font-family: 'Poppins', sans-serif; font-size: 11px; color: var(--white); font-weight: 600; }
+  .qr-sub { font-family: 'Inter', sans-serif; font-size: 10px; color: var(--muted); margin-top: 2px; font-weight: 400; }
+
+  /* ──────────────────────────────────────────────────────
+     PAGE 4 – PLACEMENT
+  ────────────────────────────────────────────────────── */
+  .placement-page { background: linear-gradient(170deg, #080F1D 0%, #0A1628 100%); }
+
+  .placement-intro {
+    padding: 12px 40px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  .process-timeline {
+    padding: 0 40px;
+    position: relative;
+  }
+  .process-timeline::before {
+    content: '';
+    position: absolute;
+    left: 80px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--sky), var(--teal), transparent);
+  }
+
+  .process-step {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+    position: relative;
+  }
+  .step-num {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--sky));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--white);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 20px rgba(0,194,204,0.3);
+  }
+  .step-content {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    flex: 1;
+    margin-top: 2px;
+  }
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .step-points { list-style: none; }
+  .step-points li {
+    font-size: 12px;
+    color: #A0B8CC;
+    padding: 3px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .step-points li::before {
+    content: '▸';
+    color: var(--sky);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-tag {
+    display: inline-block;
+    background: rgba(0,194,204,0.12);
+    border: 1px solid rgba(0,194,204,0.3);
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 10px;
+    color: var(--sky);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .outcome-row {
+    display: flex;
+    gap: 14px;
+    padding: 16px 40px 0;
+  }
+  .outcome-card {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(255,107,53,0.12), rgba(255,184,48,0.05));
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  .outcome-icon { font-size: 24px; margin-bottom: 6px; }
+  .outcome-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--orange);
+  }
+  .outcome-lbl { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  /* ──────────────────────────────────────────────────────
+     SYLLABUS PAGES
+  ────────────────────────────────────────────────────── */
+  .syllabus-page { background: var(--navy); }
+
+  .syllabus-intro {
+    padding: 10px 40px 20px;
+    display: flex;
+    gap: 14px;
+  }
+  .duration-pill {
+    background: linear-gradient(135deg, var(--teal), var(--sky));
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--white);
+  }
+  .mode-pill {
+    background: rgba(255,107,53,0.12);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--orange);
+  }
+
+  .modules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 0 40px;
+  }
+  .module-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .module-header {
+    background: linear-gradient(90deg, rgba(13,115,119,0.5), rgba(13,115,119,0.1));
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .module-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--sky);
+    background: rgba(0,194,204,0.12);
+    border: 1px solid rgba(0,194,204,0.25);
+    border-radius: 6px;
+    padding: 2px 8px;
+  }
+  .module-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--white);
+  }
+  .module-body { padding: 12px 18px; }
+  .topic-list { list-style: none; }
+  .topic-list li {
+    font-size: 11.5px;
+    color: #9AB0C8;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    line-height: 1.5;
+  }
+  .topic-list li:last-child { border-bottom: none; }
+  .topic-list li::before {
+    content: '◆';
+    color: rgba(0,194,204,0.5);
+    font-size: 7px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  /* full-width module */
+  .module-card-wide {
+    grid-column: 1 / -1;
+  }
+  .module-body-wide {
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .sub-group {}
+  .sub-group-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  /* ──────────────────────────────────────────────────────
+     LAST PAGE – WHY BTREE
+  ────────────────────────────────────────────────────── */
+  .why-page {
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,194,204,0.1) 0%, transparent 60%),
+      linear-gradient(180deg, #060E1A 0%, #0A1628 100%);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 10px 40px 0;
+  }
+  .why-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .why-icon-box {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(0,194,204,0.2), rgba(0,194,204,0.05));
+    border: 1px solid rgba(0,194,204,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .why-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--white);
+    margin-bottom: 5px;
+  }
+  .why-card-text { font-size: 11.5px; color: #8FA3BF; line-height: 1.5; }
+
+  .closing-cta {
+    margin: 20px 40px 0;
+    background: linear-gradient(135deg, var(--teal) 0%, #0A8B8F 40%, #0D7377 100%);
+    border-radius: 18px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-cta::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .closing-cta::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.1);
+  }
+  .cta-headline {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--white);
+    position: relative; z-index: 1;
+  }
+  .cta-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 6px;
+    position: relative; z-index: 1;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-top: 18px;
+    position: relative; z-index: 1;
+  }
+  .btn-enroll {
+    background: var(--white);
+    color: var(--teal);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: 0.5px;
+  }
+  .contact-info {
+    color: rgba(255,255,255,0.9);
+    font-size: 13px;
+    line-height: 1.9;
+  }
+  .contact-info strong { font-weight: 700; }
+
+  /* page footer */
+  .page-footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 40px;
+    background: rgba(6,14,26,0.8);
+    border-top: 1px solid rgba(20,161,166,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* utility */
+  .mt8 { margin-top: 8px; }
+  .mt14 { margin-top: 14px; }
+  .mt20 { margin-top: 20px; }
+  .tag-new {
+    display: inline-block;
+    background: rgba(255,107,53,0.15);
+    border: 1px solid rgba(255,107,53,0.35);
+    border-radius: 5px;
+    padding: 1px 8px;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 6px;
+  }
+
+  @media print {
+    body { width: 794px; }
+    .page { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 1 – COVER
+═══════════════════════════════════════════════════ -->
+<div class="page cover">
+  <div class="grid-bg"></div>
+
+  <div class="nav-bar" style="position:relative;z-index:10;">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">IT Training & Placement</div>
+    <div class="page-num">01 / 10</div>
+  </div>
+
+  <div class="cover-body" style="position:relative;z-index:2;">
+    <div class="cover-badge">🚀 &nbsp; 2025 Batch — Now Enrolling</div>
+
+    <div class="cover-headline">
+      AWS DevOps<br>+ AI Integrated<br>Program
+    </div>
+
+    <div class="cover-sub">
+      Master Cloud Infrastructure, CI/CD Pipelines, Kubernetes, Terraform &<br>
+      <strong>AI-powered DevOps automation</strong> — end-to-end, industry-ready.
+    </div>
+
+    <div class="cover-tagline">
+      🎯 &nbsp; Land Your Dream Job in Cloud & DevOps. Fast.
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-chip">
+        <div class="icon">⏱</div>
+        <div>
+          <div class="label">Duration</div>
+          <div class="val">4 Months</div>
+        </div>
+      </div>
+      <div class="meta-chip">
+        <div class="icon">🎓</div>
+        <div>
+          <div class="label">Mode</div>
+          <div class="val">Online &amp; Offline</div>
+        </div>
+      </div>
+      <div class="meta-chip">
+        <div class="icon">📁</div>
+        <div>
+          <div class="label">Projects</div>
+          <div class="val">10+ Real-Time</div>
+        </div>
+      </div>
+      <div class="meta-chip">
+        <div class="icon">🏅</div>
+        <div>
+          <div class="label">Certification</div>
+          <div class="val">Industry Cert.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roles-section" style="margin-top:24px;">
+      <div class="roles-title">Career Roles After Completion</div>
+      <div class="roles-grid">
+        <div class="role-card">
+          <div class="role-dot"></div>
+          <div>
+            <div class="role-name">DevOps Engineer</div>
+            <div class="role-sal">₹6L – ₹18L / Year</div>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-dot"></div>
+          <div>
+            <div class="role-name">Cloud Engineer</div>
+            <div class="role-sal">₹7L – ₹22L / Year</div>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-dot"></div>
+          <div>
+            <div class="role-name">Site Reliability Engineer (SRE)</div>
+            <div class="role-sal">₹8L – ₹25L / Year</div>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-dot"></div>
+          <div>
+            <div class="role-name">AWS Cloud Architect</div>
+            <div class="role-sal">₹10L – ₹30L / Year</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlights-strip">
+      <div class="hl-item">
+        <div class="hl-icon">💼</div>
+        <div class="hl-val">100%</div>
+        <div class="hl-lbl">Placement Support</div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🧑‍💻</div>
+        <div class="hl-val">13+</div>
+        <div class="hl-lbl">Years Expertise</div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🎬</div>
+        <div class="hl-val">Lifetime</div>
+        <div class="hl-lbl">Recording Access</div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🏆</div>
+        <div class="hl-val">716+</div>
+        <div class="hl-lbl">Google Reviews</div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🤖</div>
+        <div class="hl-val">AI</div>
+        <div class="hl-lbl">Integrated Module</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer" style="position:absolute;bottom:0;left:0;right:0;">
+    <div class="footer-contact">
+      <strong>📞 +91 91769 97676</strong><br>
+      🌐 www.btreesystems.com
+    </div>
+    <a class="cta-btn" href="#">ENROLL NOW →</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 2 – STUDENT REVIEWS (Primary)
+═══════════════════════════════════════════════════ -->
+<div class="page reviews-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">Student Success Stories</div>
+    <div class="page-num">02 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">⭐ Google Verified Reviews</div>
+    <div class="section-title">What Our <span>Students Say</span></div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">716+</div>
+      <div class="stat-label">Google Reviews</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4.9★</div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2000+</div>
+      <div class="stat-label">Students Trained</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">95%</div>
+      <div class="stat-label">Placement Rate</div>
+    </div>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">
+        I joined BTree Systems to upskill in UI/UX after a career break. The course and placement support were very helpful. A good learning experience overall.
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar">H</div>
+        <div>
+          <div class="reviewer-name">Hema Rajendran</div>
+          <div class="reviewer-course">UI/UX Design • 3 weeks ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">
+        I recently joined the Data Analytics program at BTree Systems, and it was a really great learning experience. My trainer Thagashini Ma'am is very friendly, professional, and highly supportive. She explained every topic clearly from basics to advanced — Python, SQL, Excel, Tableau and more.
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar">V</div>
+        <div>
+          <div class="reviewer-name">Vishnu Lingeswaran</div>
+          <div class="reviewer-course">Data Analytics • 2 weeks ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">
+        I am Siva Kumar. I joined the UI/UX Design course at B Tree Systems, Chennai. The trainers explain concepts clearly — from UI basics to advanced UX principles. The course covers Figma, wireframing, prototyping, usability testing, and design thinking. Highly recommended!
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar">SK</div>
+        <div>
+          <div class="reviewer-name">Sk Sivakumar</div>
+          <div class="reviewer-course">UI/UX Design • 15 hours ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">
+        I recently completed the Data Analytics course at BTree Systems and had a very positive learning experience. The course curriculum was well structured, explained in a clear and practical manner. The trainer used real-time examples that made complex concepts easy to understand.
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar">J</div>
+        <div>
+          <div class="reviewer-name">Jayadharshana M</div>
+          <div class="reviewer-course">Data Analytics • a week ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="social-band">
+    <div class="social-band-icon">🎥</div>
+    <div class="social-band-text">
+      <div class="top">Watch Real Student Success Stories</div>
+      <div class="bottom">YouTube Channel &amp; Instagram Reels — Real journeys, real results</div>
+    </div>
+    <div class="social-links">
+      <a class="social-link" href="https://www.youtube.com/@btreesystems">▶ youtube.com/@btreesystems</a>
+      <a class="social-link" href="https://www.instagram.com/reel/DV07m6hD-pn/">📸 Instagram Success Reel 1</a>
+      <a class="social-link" href="https://www.instagram.com/reel/DViyGMtj3c2/">📸 Instagram Success Reel 2</a>
+      <a class="social-link" href="https://www.instagram.com/reel/DSH4uoTj1jF/">📸 Instagram Success Reel 3</a>
+    </div>
+  </div>
+
+  <div class="qr-row">
+    <div class="qr-card">
+      <div class="qr-box">📱</div>
+      <div>
+        <div class="qr-label">Scan QR — Google Reviews</div>
+        <div class="qr-sub">716+ verified 5-star student reviews on Google</div>
+      </div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-box">🎬</div>
+      <div>
+        <div class="qr-label">Scan QR — Success Stories</div>
+        <div class="qr-sub">Real student journeys on YouTube & Instagram</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>BTree Systems © 2025</span>
+    <span>📞 +91 91769 97676 &nbsp;|&nbsp; 🌐 www.btreesystems.com</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 3 – MORE REVIEWS
+═══════════════════════════════════════════════════ -->
+<div class="page reviews-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">More Student Reviews</div>
+    <div class="page-num">03 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">⭐ Community Voices</div>
+    <div class="section-title">More <span>Success Stories</span></div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">
+        Training is conducted by certified industry veterans who bring real-world case studies and current best practices. The placement process is a dedicated partnership designed to convert your training into a career opportunity.
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:linear-gradient(135deg,var(--orange),var(--amber));">M</div>
+        <div>
+          <div class="reviewer-name">Mohamed Rabik</div>
+          <div class="reviewer-course">Data Analytics • a week ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">
+        I recently completed the Python Full Stack Development course at BTree Systems and I'm extremely satisfied. The training was practical and industry-oriented. The mock interviews and one-on-one mentoring gave me the confidence to perform well in real job interviews.
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:linear-gradient(135deg,#6B35FF,#A070FF);">S</div>
+        <div>
+          <div class="reviewer-name">Sadhana Mani</div>
+          <div class="reviewer-course">Python Full Stack • 6 min ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">
+        I completed my UI/UX course at BTree Institute. After completing, the placement team provided strong support. Even after 3 months of course completion, they are still helping me by sharing company links and guiding me through job opportunities. Their continuous support is highly appreciated.
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:linear-gradient(135deg,#0D9373,#14C49A);">K</div>
+        <div>
+          <div class="reviewer-name">Karuppaih S</div>
+          <div class="reviewer-course">UI/UX Design • a day ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">
+        I completed the data analytics course with Btree Systems via online session. Overall I had a satisfying experience. I gained knowledge by doing various hands-on projects. The mentors are always available to clarify our doubts. Would highly recommend.
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:linear-gradient(135deg,#0077B6,#00B4D8);">N</div>
+        <div>
+          <div class="reviewer-name">Nivetha Balan</div>
+          <div class="reviewer-course">Data Analytics • a week ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(13,115,119,0.15), rgba(0,194,204,0.05)); border-color: rgba(0,194,204,0.35);">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text" style="color:#D0E8F0; font-size: 13px;">
+        My trainer Thagashini doing a great job teaching me everything from basics to advanced topics in SQL, Excel, Tableau. I recommend strongly she herself take another 2 Power BI and Python, also it's going really great. Excellent ambiance and great teaching. Will definitely recommend BTree for DA course. Thank you.
+      </div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:linear-gradient(135deg,var(--teal),var(--sky)); width:38px; height:38px; font-size:15px;">R</div>
+        <div>
+          <div class="reviewer-name">Raji Paypal</div>
+          <div class="reviewer-course">Data Analytics — Trainer: Thagashini Ma'am • 2 weeks ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 16px 40px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+    <div style="background:rgba(255,184,48,0.08);border:1px solid rgba(255,184,48,0.3);border-radius:10px;padding:10px 16px;font-size:11.5px;color:#C8D8E8;flex:1;">
+      <span style="color:var(--amber);font-weight:700;">🏆 Expert Trainers</span><br>
+      Industry professionals with 10+ years delivering real-world curriculum
+    </div>
+    <div style="background:rgba(0,194,204,0.08);border:1px solid rgba(0,194,204,0.25);border-radius:10px;padding:10px 16px;font-size:11.5px;color:#C8D8E8;flex:1;">
+      <span style="color:var(--sky);font-weight:700;">💼 Career-First Learning</span><br>
+      Every module aligned with current industry hiring standards
+    </div>
+    <div style="background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.25);border-radius:10px;padding:10px 16px;font-size:11.5px;color:#C8D8E8;flex:1;">
+      <span style="color:var(--orange);font-weight:700;">♾ Unlimited Support</span><br>
+      Placement assistance continues until you land your dream job
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>BTree Systems © 2025</span>
+    <span>📞 +91 91769 97676 &nbsp;|&nbsp; 🌐 www.btreesystems.com</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 4 – PLACEMENT PROCESS
+═══════════════════════════════════════════════════ -->
+<div class="page placement-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">Placement Process</div>
+    <div class="page-num">04 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">🎯 End-to-End Career Support</div>
+    <div class="section-title">Our <span>Placement Process</span></div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="placement-intro">
+    We don't just train you — we partner with you until you get placed. Every step below is built to maximise your chances of landing a high-paying AWS DevOps role.
+  </div>
+
+  <div class="process-timeline">
+
+    <div class="process-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Intensive Training + Hands-On Projects</div>
+        <ul class="step-points">
+          <li>Live instructor-led sessions by certified industry veterans</li>
+          <li>10+ real-time projects: CI/CD pipelines, Kubernetes clusters, AWS infra</li>
+          <li>Daily tasks & practicals to build job-ready muscle memory</li>
+          <li>Recordings + lifetime LMS access for revision anytime</li>
+        </ul>
+        <span class="step-tag">Foundation Phase</span>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Professional Resume Building</div>
+        <ul class="step-points">
+          <li>One-on-one resume crafting sessions with placement experts</li>
+          <li>ATS-optimised format targeting top MNC & startup hiring managers</li>
+          <li>Highlight project experience, cloud certifications & key skills</li>
+          <li>Review, iterate, and perfect before going live</li>
+        </ul>
+        <span class="step-tag">Profile Creation</span>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">LinkedIn &amp; Naukri Profile Optimisation</div>
+        <ul class="step-points">
+          <li>Keyword-rich LinkedIn headline &amp; summary writing</li>
+          <li>Strategic endorsements, projects, and certifications display</li>
+          <li>Naukri profile setup with resume visibility tuning</li>
+          <li>Recruiter outreach strategy &amp; connection growth tactics</li>
+        </ul>
+        <span class="step-tag">Online Presence</span>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">Mock Interviews &amp; Interview Preparation</div>
+        <ul class="step-points">
+          <li>Technical mock interviews covering AWS, Linux, Docker, Kubernetes, CI/CD</li>
+          <li>HR & behavioural round preparation with expert feedback</li>
+          <li>Interview tips &amp; tricks to crack top company rounds</li>
+          <li>Common question banks + live problem-solving drills</li>
+        </ul>
+        <span class="step-tag">Confidence Building</span>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">Real Interview Scheduling &amp; Offer Support</div>
+        <ul class="step-points">
+          <li>Direct company referrals &amp; job drive scheduling</li>
+          <li>Coordination with hiring partners across Chennai, Bangalore, Hyderabad</li>
+          <li>Offer letter negotiation guidance &amp; onboarding support</li>
+          <li>Placement assistance continues UNLIMITED until you are placed</li>
+        </ul>
+        <span class="step-tag">Land the Job</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="outcome-row">
+    <div class="outcome-card">
+      <div class="outcome-icon">🚀</div>
+      <div class="outcome-val">95%</div>
+      <div class="outcome-lbl">Placement Rate</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-icon">⏳</div>
+      <div class="outcome-val">60 Days</div>
+      <div class="outcome-lbl">Avg. Time to Offer</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-icon">💰</div>
+      <div class="outcome-val">₹6L+</div>
+      <div class="outcome-lbl">Starting Package</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-icon">🏢</div>
+      <div class="outcome-val">200+</div>
+      <div class="outcome-lbl">Hiring Partners</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>BTree Systems © 2025</span>
+    <span>📞 +91 91769 97676 &nbsp;|&nbsp; 🌐 www.btreesystems.com</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 5 – SYLLABUS: FOUNDATION MODULES
+═══════════════════════════════════════════════════ -->
+<div class="page syllabus-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">Course Syllabus</div>
+    <div class="page-num">05 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">📋 Complete Curriculum</div>
+    <div class="section-title">AWS DevOps <span>Syllabus</span> — Part 1</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="syllabus-intro">
+    <div class="duration-pill">⏱ Duration: 4 Months</div>
+    <div class="mode-pill">🎓 Online + Offline</div>
+    <div style="background:rgba(255,184,48,0.1);border:1px solid rgba(255,184,48,0.3);border-radius:10px;padding:10px 22px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--amber);">🤖 AI Module Integrated</div>
+  </div>
+
+  <div class="modules-grid">
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-01</div>
+        <div class="module-name">Linux Fundamentals</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Introduction to Linux &amp; OS Architecture</li>
+          <li>File System Structure &amp; Navigation</li>
+          <li>File &amp; Directory Management Commands</li>
+          <li>User &amp; Group Management</li>
+          <li>File Permissions &amp; Ownership (chmod, chown)</li>
+          <li>Package Management (apt, yum, rpm)</li>
+          <li>Process Management &amp; Monitoring</li>
+          <li>Shell Scripting Basics (Bash)</li>
+          <li>Cron Jobs &amp; Task Scheduling</li>
+          <li>Networking Basics in Linux</li>
+          <li>SSH &amp; Remote Server Access</li>
+          <li>System Logs &amp; Log Management</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-02</div>
+        <div class="module-name">Shell Scripting</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Introduction to Shell &amp; Types of Shells</li>
+          <li>Variables, Data Types &amp; Operators</li>
+          <li>Conditional Statements (if/else, case)</li>
+          <li>Loops (for, while, until)</li>
+          <li>Functions &amp; Script Reusability</li>
+          <li>Input / Output Redirection</li>
+          <li>String Manipulation &amp; Arrays</li>
+          <li>File &amp; Directory Operations via Script</li>
+          <li>Regular Expressions (grep, sed, awk)</li>
+          <li>Error Handling &amp; Exit Codes</li>
+          <li>Automation Scripts for DevOps Tasks</li>
+          <li>Real-time Script Projects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-03</div>
+        <div class="module-name">Python for DevOps</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Python Fundamentals &amp; Environment Setup</li>
+          <li>Data Types: List, Dict, Tuple, Set</li>
+          <li>Control Flow: Conditions &amp; Loops</li>
+          <li>Functions, Modules &amp; Packages</li>
+          <li>File I/O Operations</li>
+          <li>Exception Handling</li>
+          <li>Boto3 — AWS SDK for Python</li>
+          <li>Automating AWS with Python Scripts</li>
+          <li>REST API Integration using Python</li>
+          <li>Paramiko (SSH Automation)</li>
+          <li>YAML / JSON parsing with Python</li>
+          <li>Python DevOps Automation Projects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-04</div>
+        <div class="module-name">Git &amp; GitHub</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Version Control Concepts &amp; Git Architecture</li>
+          <li>Git Init, Clone, Add, Commit, Push, Pull</li>
+          <li>Branching Strategies (Git Flow, Trunk-Based)</li>
+          <li>Merge, Rebase &amp; Cherry-Pick</li>
+          <li>Conflict Resolution &amp; Best Practices</li>
+          <li>Git Tags &amp; Release Management</li>
+          <li>GitHub Pull Requests &amp; Code Reviews</li>
+          <li>GitHub Actions — CI/CD Workflows</li>
+          <li>Git Hooks &amp; Pre-commit Automation</li>
+          <li>.gitignore, README &amp; Project Setup</li>
+          <li>GitHub Secrets &amp; Environments</li>
+          <li>Monorepo vs Multi-repo Strategy</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>BTree Systems © 2025</span>
+    <span>📞 +91 91769 97676 &nbsp;|&nbsp; 🌐 www.btreesystems.com</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 6 – SYLLABUS: CI/CD & CONTAINERS
+═══════════════════════════════════════════════════ -->
+<div class="page syllabus-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">Course Syllabus</div>
+    <div class="page-num">06 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">📋 Complete Curriculum</div>
+    <div class="section-title">AWS DevOps <span>Syllabus</span> — Part 2</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="modules-grid" style="margin-top: 14px;">
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-05</div>
+        <div class="module-name">Maven &amp; Build Tools</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Build Lifecycle &amp; Phases</li>
+          <li>Maven Installation &amp; Configuration</li>
+          <li>POM.xml Structure &amp; Dependencies</li>
+          <li>Maven Repositories (Local, Central, Remote)</li>
+          <li>Maven Plugins &amp; Goals</li>
+          <li>Multi-Module Projects</li>
+          <li>Build Automation with Maven</li>
+          <li>Integration with Jenkins &amp; CI/CD</li>
+          <li>Gradle Overview &amp; Comparison</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-06</div>
+        <div class="module-name">Jenkins &amp; CI/CD Pipelines</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Jenkins Architecture &amp; Installation</li>
+          <li>Freestyle Jobs vs Pipeline Jobs</li>
+          <li>Declarative &amp; Scripted Pipelines (Groovy)</li>
+          <li>Jenkinsfile — Pipeline as Code</li>
+          <li>Stages, Steps &amp; Post Actions</li>
+          <li>Jenkins Plugins (Git, Docker, AWS, Slack)</li>
+          <li>Master–Agent (Distributed Builds)</li>
+          <li>Parameterised Builds &amp; Triggers</li>
+          <li>Blue Ocean UI &amp; Pipeline Visualisation</li>
+          <li>Integration: GitHub → Jenkins → Docker → AWS</li>
+          <li>Jenkins Shared Libraries</li>
+          <li>End-to-End Pipeline Projects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-07</div>
+        <div class="module-name">Docker &amp; Containerisation</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Container vs VM Architecture</li>
+          <li>Docker Installation &amp; Architecture (Daemon, Client, Registry)</li>
+          <li>Images, Containers, Volumes &amp; Networks</li>
+          <li>Dockerfile — Writing &amp; Best Practices</li>
+          <li>Multi-stage Builds for Optimised Images</li>
+          <li>Docker Compose — Multi-container Apps</li>
+          <li>Docker Hub &amp; Private Registry (ECR)</li>
+          <li>Docker Networking (Bridge, Host, Overlay)</li>
+          <li>Container Security &amp; Resource Limits</li>
+          <li>Docker Swarm Overview</li>
+          <li>Real-time Containerisation Projects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-08</div>
+        <div class="module-name">Kubernetes (K8s)</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Container Orchestration &amp; K8s Architecture</li>
+          <li>Control Plane: API Server, etcd, Scheduler, Controller</li>
+          <li>Worker Node: Kubelet, Kube-Proxy, Container Runtime</li>
+          <li>Pods, ReplicaSets, Deployments</li>
+          <li>Services: ClusterIP, NodePort, LoadBalancer</li>
+          <li>ConfigMaps &amp; Secrets Management</li>
+          <li>Persistent Volumes (PV, PVC, StorageClass)</li>
+          <li>Ingress Controllers &amp; Routing</li>
+          <li>HPA — Horizontal Pod Autoscaling</li>
+          <li>Helm Charts &amp; Application Packaging</li>
+          <li>Amazon EKS — Managed Kubernetes on AWS</li>
+          <li>K8s Monitoring with Prometheus &amp; Grafana</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>BTree Systems © 2025</span>
+    <span>📞 +91 91769 97676 &nbsp;|&nbsp; 🌐 www.btreesystems.com</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 7 – SYLLABUS: AWS CORE SERVICES
+═══════════════════════════════════════════════════ -->
+<div class="page syllabus-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">Course Syllabus</div>
+    <div class="page-num">07 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">📋 Complete Curriculum</div>
+    <div class="section-title">AWS <span>Core Services</span> — Part 3</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="modules-grid" style="margin-top:14px;">
+
+    <div class="module-card module-card-wide">
+      <div class="module-header">
+        <div class="module-num">M-09</div>
+        <div class="module-name">Amazon Web Services (AWS) — Core Services</div>
+      </div>
+      <div class="module-body-wide">
+        <div class="sub-group">
+          <div class="sub-group-title">Compute</div>
+          <ul class="topic-list">
+            <li>EC2 — Instance Types, AMIs, Auto Scaling</li>
+            <li>EC2 Launch Templates &amp; User Data</li>
+            <li>Elastic Load Balancer (ALB, NLB, CLB)</li>
+            <li>AWS Lambda — Serverless Functions</li>
+            <li>ECS — Elastic Container Service</li>
+            <li>EKS — Elastic Kubernetes Service</li>
+            <li>Elastic Beanstalk — PaaS Deployments</li>
+          </ul>
+        </div>
+        <div class="sub-group">
+          <div class="sub-group-title">Storage &amp; Database</div>
+          <ul class="topic-list">
+            <li>S3 — Buckets, Policies, Versioning, Lifecycle</li>
+            <li>S3 Static Website Hosting &amp; CloudFront</li>
+            <li>EBS — Elastic Block Store &amp; Snapshots</li>
+            <li>EFS — Elastic File System</li>
+            <li>RDS — Relational DB &amp; Read Replicas</li>
+            <li>DynamoDB — NoSQL &amp; DynamoDB Streams</li>
+            <li>ElastiCache — Redis &amp; Memcached</li>
+          </ul>
+        </div>
+        <div class="sub-group">
+          <div class="sub-group-title">Networking &amp; Security</div>
+          <ul class="topic-list">
+            <li>VPC — Subnets, Route Tables, NAT, IGW</li>
+            <li>Security Groups &amp; NACLs</li>
+            <li>IAM — Users, Roles, Policies, MFA</li>
+            <li>AWS KMS — Key Management</li>
+            <li>CloudTrail &amp; Config — Compliance</li>
+            <li>WAF, Shield &amp; GuardDuty</li>
+            <li>Route 53 — DNS &amp; Failover Routing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-10</div>
+        <div class="module-name">AWS Developer &amp; DevOps Tools</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>AWS CodeCommit — Managed Git</li>
+          <li>AWS CodeBuild — Managed Build Service</li>
+          <li>AWS CodeDeploy — Automated Deployments</li>
+          <li>AWS CodePipeline — End-to-End CI/CD</li>
+          <li>AWS CodeArtifact — Package Management</li>
+          <li>AWS CloudFormation — IaC Templates</li>
+          <li>AWS CDK — Cloud Development Kit</li>
+          <li>AWS Systems Manager (SSM)</li>
+          <li>AWS Secrets Manager</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-11</div>
+        <div class="module-name">Monitoring &amp; Observability</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Amazon CloudWatch — Metrics, Logs, Alarms</li>
+          <li>CloudWatch Dashboards &amp; Insights</li>
+          <li>AWS X-Ray — Distributed Tracing</li>
+          <li>Prometheus — Metrics Collection</li>
+          <li>Grafana — Dashboard Visualisation</li>
+          <li>ELK Stack — Elasticsearch, Logstash, Kibana</li>
+          <li>Alerting Strategies &amp; On-call Management</li>
+          <li>SLI, SLO, SLA — SRE Concepts</li>
+          <li>Incident Response &amp; Runbooks</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>BTree Systems © 2025</span>
+    <span>📞 +91 91769 97676 &nbsp;|&nbsp; 🌐 www.btreesystems.com</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 8 – SYLLABUS: IaC, ANSIBLE, TERRAFORM + AI
+═══════════════════════════════════════════════════ -->
+<div class="page syllabus-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">Course Syllabus</div>
+    <div class="page-num">08 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">📋 Complete Curriculum</div>
+    <div class="section-title">IaC, Ansible, <span>AI Integration</span> — Part 4</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="modules-grid" style="margin-top:14px;">
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-12</div>
+        <div class="module-name">Terraform — Infrastructure as Code</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>IaC Concepts &amp; Benefits</li>
+          <li>Terraform Architecture &amp; Installation</li>
+          <li>HCL Syntax — Providers, Resources, Variables</li>
+          <li>Terraform State &amp; Remote Backend (S3 + DynamoDB)</li>
+          <li>Terraform Modules — Reusability &amp; Structure</li>
+          <li>Workspaces — Multi-environment Management</li>
+          <li>Data Sources &amp; Outputs</li>
+          <li>Terraform Cloud &amp; Sentinel (Policy as Code)</li>
+          <li>Terragrunt Overview</li>
+          <li>Provisioning AWS Infra with Terraform</li>
+          <li>Terraform with CI/CD Pipeline</li>
+          <li>Real-time Terraform Projects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-13</div>
+        <div class="module-name">Ansible — Configuration Management</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Configuration Management Concepts</li>
+          <li>Ansible Architecture &amp; Installation</li>
+          <li>Inventory — Static &amp; Dynamic (AWS EC2)</li>
+          <li>Ad-hoc Commands</li>
+          <li>Playbooks — YAML Structure &amp; Tasks</li>
+          <li>Roles — Organising &amp; Reusing Code</li>
+          <li>Variables, Facts &amp; Jinja2 Templates</li>
+          <li>Handlers, Conditions &amp; Loops</li>
+          <li>Ansible Vault — Secrets Management</li>
+          <li>Galaxy — Community Roles</li>
+          <li>Ansible AWX / Tower Overview</li>
+          <li>Ansible + Terraform Integration Projects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card" style="border-color: rgba(255,184,48,0.4);">
+      <div class="module-header" style="background: linear-gradient(90deg, rgba(255,184,48,0.2), rgba(255,184,48,0.04));">
+        <div class="module-num" style="color:var(--amber);border-color:rgba(255,184,48,0.4);background:rgba(255,184,48,0.1);">M-14</div>
+        <div class="module-name">🤖 AI for DevOps <span class="tag-new">NEW</span></div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Introduction to AI &amp; Machine Learning Concepts</li>
+          <li>AI-Assisted Code Review &amp; Auto-remediation</li>
+          <li>GitHub Copilot for DevOps Automation</li>
+          <li>ChatGPT / LLM Integration in Pipelines</li>
+          <li>AIOps — Predictive Incident Detection</li>
+          <li>AWS CodeWhisperer for IaC Generation</li>
+          <li>Anomaly Detection with CloudWatch AI</li>
+          <li>AI-Powered Log Analysis (AWS DevOps Guru)</li>
+          <li>Intelligent Alerting &amp; Root Cause Analysis</li>
+          <li>Prompt Engineering for DevOps Use Cases</li>
+          <li>Building AI-Integrated DevOps Pipelines</li>
+          <li>Capstone: AI + DevOps End-to-End Project</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-15</div>
+        <div class="module-name">DevSecOps &amp; Security</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>DevSecOps Principles &amp; Shift-Left Security</li>
+          <li>SAST — Static Application Security Testing (SonarQube)</li>
+          <li>DAST — Dynamic Testing (OWASP ZAP)</li>
+          <li>Container Image Scanning (Trivy, Snyk)</li>
+          <li>Secrets Detection — GitLeaks, Detect-Secrets</li>
+          <li>AWS Security Hub &amp; Inspector</li>
+          <li>Zero Trust Architecture on AWS</li>
+          <li>Compliance as Code (OPA, Checkov)</li>
+          <li>Security in CI/CD Pipelines</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>BTree Systems © 2025</span>
+    <span>📞 +91 91769 97676 &nbsp;|&nbsp; 🌐 www.btreesystems.com</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 9 – SYLLABUS: ADVANCED + PROJECTS
+═══════════════════════════════════════════════════ -->
+<div class="page syllabus-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">Course Syllabus</div>
+    <div class="page-num">09 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">📋 Advanced Topics &amp; Projects</div>
+    <div class="section-title">Advanced <span>Modules</span> — Part 5</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="modules-grid" style="margin-top:14px;">
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-16</div>
+        <div class="module-name">GitOps &amp; ArgoCD</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>GitOps Principles &amp; Workflow</li>
+          <li>ArgoCD Architecture &amp; Installation</li>
+          <li>Application Deployment via ArgoCD</li>
+          <li>Sync Policies &amp; Health Checks</li>
+          <li>Rollback &amp; Progressive Delivery</li>
+          <li>ArgoCD + Helm + Kustomize</li>
+          <li>Multi-cluster GitOps Management</li>
+          <li>FluxCD Overview &amp; Comparison</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-17</div>
+        <div class="module-name">SonarQube &amp; Code Quality</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Code Quality Concepts &amp; Technical Debt</li>
+          <li>SonarQube Installation &amp; Configuration</li>
+          <li>Quality Gates &amp; Quality Profiles</li>
+          <li>Integration with Jenkins &amp; GitHub Actions</li>
+          <li>Code Coverage Reports (JaCoCo)</li>
+          <li>Custom Rules &amp; Issue Management</li>
+          <li>SonarCloud for Open Source Projects</li>
+          <li>Metrics: Bugs, Vulnerabilities, Smells</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-18</div>
+        <div class="module-name">Nexus &amp; Artifact Management</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>Artifact Repository Concepts</li>
+          <li>Nexus Repository Manager Setup</li>
+          <li>Maven, npm, Docker Hosted Repos</li>
+          <li>Proxy &amp; Group Repositories</li>
+          <li>Integration with Jenkins Pipelines</li>
+          <li>Artifact Versioning &amp; Cleanup Policies</li>
+          <li>AWS CodeArtifact as Alternative</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="module-num">M-19</div>
+        <div class="module-name">Site Reliability Engineering (SRE)</div>
+      </div>
+      <div class="module-body">
+        <ul class="topic-list">
+          <li>SRE Culture &amp; Principles (Google SRE)</li>
+          <li>Error Budgets &amp; Risk Management</li>
+          <li>SLI / SLO / SLA Definitions</li>
+          <li>Toil Reduction &amp; Automation</li>
+          <li>Post-mortem Culture &amp; Blameless Reviews</li>
+          <li>Capacity Planning &amp; Performance Testing</li>
+          <li>Chaos Engineering (Chaos Monkey)</li>
+          <li>On-call Practices &amp; Incident Response</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="module-card module-card-wide" style="border-color: rgba(0,194,204,0.5);">
+      <div class="module-header" style="background: linear-gradient(90deg, rgba(0,194,204,0.2), rgba(0,194,204,0.04));">
+        <div class="module-num">M-20</div>
+        <div class="module-name">🏗️ Capstone Projects — Real-Time Hands-On</div>
+      </div>
+      <div class="module-body-wide">
+        <div class="sub-group">
+          <div class="sub-group-title">Project 1 &amp; 2</div>
+          <ul class="topic-list">
+            <li>End-to-End CI/CD Pipeline: GitHub → Jenkins → Docker → EKS</li>
+            <li>Multi-tier App Deployment on AWS with Terraform</li>
+          </ul>
+        </div>
+        <div class="sub-group">
+          <div class="sub-group-title">Project 3 &amp; 4</div>
+          <ul class="topic-list">
+            <li>GitOps with ArgoCD + Helm on AWS EKS</li>
+            <li>Serverless DevOps Pipeline using Lambda &amp; CodePipeline</li>
+          </ul>
+        </div>
+        <div class="sub-group">
+          <div class="sub-group-title">Project 5</div>
+          <ul class="topic-list">
+            <li>AI-Integrated DevOps: Anomaly Detection + Auto-healing Pipeline</li>
+            <li>Full Monitoring Stack: Prometheus + Grafana + CloudWatch</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>BTree Systems © 2025</span>
+    <span>📞 +91 91769 97676 &nbsp;|&nbsp; 🌐 www.btreesystems.com</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 10 – WHY BTREE (CLOSING PAGE)
+═══════════════════════════════════════════════════ -->
+<div class="page why-page">
+  <div class="nav-bar">
+    <div class="nav-logo">B<span>TREE</span> <span style="color:var(--muted);font-weight:400;font-size:14px;">Systems</span></div>
+    <div class="nav-tag">Why Choose BTree</div>
+    <div class="page-num">10 / 10</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">🏆 Our Competitive Edge</div>
+    <div class="section-title">Why <span>BTree Systems</span> is the Best Choice</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon-box">👨‍🏫</div>
+      <div>
+        <div class="why-card-title">13+ Years Industry Expert Trainers</div>
+        <div class="why-card-text">Learn directly from professionals with 13+ years in the field. No freshers teaching you — only battle-tested industry veterans.</div>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon-box">🎯</div>
+      <div>
+        <div class="why-card-title">Complete Career Guidance</div>
+        <div class="why-card-text">From Day 1 to your first offer letter — career mapping, goal setting, and personalised guidance for every student.</div>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon-box">🔑</div>
+      <div>
+        <div class="why-card-title">Interview Tips &amp; Tricks to Crack Jobs</div>
+        <div class="why-card-text">Insider interview strategies, pattern-based preparation, and real question banks from top MNCs &amp; product companies.</div>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon-box">📄</div>
+      <div>
+        <div class="why-card-title">Resume Building Like an Expert</div>
+        <div class="why-card-text">ATS-optimised, role-specific resumes crafted with our placement team. Your resume will stand out in any inbox.</div>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon-box">💼</div>
+      <div>
+        <div class="why-card-title">LinkedIn &amp; Naukri Profile Optimisation</div>
+        <div class="why-card-text">Get found by top recruiters. We optimise every element of your professional online presence for maximum visibility.</div>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon-box">♾</div>
+      <div>
+        <div class="why-card-title">Unlimited Placement Support</div>
+        <div class="why-card-text">We don't stop at course completion. Our placement support continues UNLIMITED until you receive your offer letter.</div>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon-box">🎬</div>
+      <div>
+        <div class="why-card-title">Unlimited Recordings &amp; Lifetime Access</div>
+        <div class="why-card-text">Miss a class? No problem. Every session is recorded and available for lifetime access via our LMS portal.</div>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon-box">🤖</div>
+      <div>
+        <div class="why-card-title">AI-Integrated Curriculum</div>
+        <div class="why-card-text">Stay ahead of the curve with our integrated AI module — the only training institute offering AI+DevOps combined learning.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Closing CTA -->
+  <div class="closing-cta">
+    <div class="cta-headline">Start Your Career in AWS DevOps Today 🚀</div>
+    <div class="cta-sub">Join thousands of students who transformed their careers with BTree Systems. Your next big opportunity is one enrollment away.</div>
+    <div class="cta-actions">
+      <a class="btn-enroll" href="#">ENROLL NOW →</a>
+      <div class="contact-info">
+        <strong>📞 +91 91769 97676</strong><br>
+        🌐 www.btreesystems.com
+      </div>
+      <div style="margin-left:auto; text-align:right;">
+        <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:4px;">Follow us</div>
+        <a href="https://www.youtube.com/@btreesystems" style="color:rgba(255,255,255,0.9);font-size:11px;display:block;text-decoration:none;">▶ YouTube: @btreesystems</a>
+        <a href="https://www.instagram.com/reel/DV07m6hD-pn/" style="color:rgba(255,255,255,0.9);font-size:11px;display:block;text-decoration:none;margin-top:3px;">📸 Instagram Success Stories</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer" style="position:relative;margin-top:16px;">
+    <span>BTree Systems © 2025 — Premium IT Training &amp; Placement</span>
+    <span style="color:var(--sky);">716+ Google Reviews ★★★★★</span>
+  </div>
+</div>
+
+</body>
+</html>
